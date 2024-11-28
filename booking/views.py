@@ -6,11 +6,9 @@ from .models import Reservation
 from .forms import ReservationForm
 
 def home(request):
-    print("Home view reached")
     return render(request, 'booking/home.html')
 
 def signup(request):
-    print("Signup view reached")
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
