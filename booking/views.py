@@ -30,3 +30,7 @@ def login_view(request):
         else:
             return render(request, 'booking/login.html', {'error: Invalid credentials'})
         return render(request, 'booking/login.html')
+
+def logout_view(request):
+    logout(request)
+    retun redirect('home')
