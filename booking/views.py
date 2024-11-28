@@ -34,3 +34,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+@login_required
+def reservation_list(request):
+    reservation = Reservation.objects.filter(user=request.user)
+    return render(request, 'booking/reservation_list.html', {'reservations': reservations})
+
