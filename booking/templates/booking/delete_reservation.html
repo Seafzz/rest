@@ -1,0 +1,10 @@
+{% extends 'booking/base.html' %}
+{% block title %}Delete Reservation{% endblock %}
+{% block content %}
+<h1>Are you sure you want to delete the reservation for {{ reservation.name }}?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+<a href="{% url 'reservation_list' %}">Cancel</a>
+{% endblock %}
