@@ -40,3 +40,15 @@ def reservation_list(request):
     reservation = Reservation.objects.filter(user=request.user)
     return render(request, 'booking/reservation_list.html', {'reservations': reservations})
 
+@login_required
+def create_reservation(request):
+    if request.method == 'POST':
+        form = ReservationsForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(comit=False)
+            reservation.user = request.user
+            reservation.save()
+            return redirect('reservation_list')
+    else:
+        form = ReservationForm()
+    return render(request, 'booking/create_reservation.html', {'form': form})
