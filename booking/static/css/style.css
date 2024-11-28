@@ -1,0 +1,15 @@
+/* Hide the datetime-local input */
+input[type="datetime-local"].d-none {
+    display: none !important;
+}
+
+/* Style the calendar icon */
+.calendar-icon {
+    cursor: pointer;
+}
+
+/* Custom styling to position the icon */
+.input-group.date {
+    display: flex;
+    align-items: center;
+}
