@@ -1,10 +1,17 @@
 {% extends 'booking/base.html' %}
 {% block title %}Create Reservation{% endblock %}
 {% block content %}
-<h1>Create Reservation</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Reservation</button>
-</form>
+<div class="card">
+    <div class="card-header">
+        <h2>Create Reservation</h2>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Create Reservation</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
+
