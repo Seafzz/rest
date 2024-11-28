@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,6 @@ def signup(request):
     return render(request, 'booking/signup.html', {'form': form})
 
 def login_view(request):
-    print("Login view reached")
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -38,13 +37,11 @@ def logout_view(request):
 
 @login_required
 def reservation_list(request):
-    print("Reservation list view reached")
     reservations = Reservation.objects.filter(user=request.user)
     return render(request, 'booking/reservation_list.html', {'reservations': reservations})
 
 @login_required
 def create_reservation(request):
-    print("Create reservation view reached")
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -56,4 +53,23 @@ def create_reservation(request):
         form = ReservationForm()
     return render(request, 'booking/create_reservation.html', {'form': form})
 
+@login_required
+def edit_reservation(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect('reservation_list')
+    else:
+        form = ReservationForm(instance=reservation)
+    return render(request, 'booking/edit_reservation.html', {'form': form})
+
+@login_required
+def delete_reservation(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
+    if request.method == 'POST':
+        reservation.delete()
+        return redirect('reservation_list')
+    return render(request, 'booking/delete_reservation.html', {'reservation': reservation})
 
