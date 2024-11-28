@@ -3,10 +3,30 @@
 {% block content %}
 <h1>Your Reservations</h1>
 
-<ul>
-    {% for reservation in reservations %}
-        <li>{{ reservation.name }} on {{ reservation.reservation_time }} for {{ reservation.number_of_guests }} guests</li>
+<ul class="list-group">
+    {% for reservation in page_obj %}
+        <li class="list-group-item">{{ reservation.name }} on {{ reservation.reservation_time }} for {{ reservation.number_of_guests }} guests
+            <a href="{% url 'edit_reservation' reservation.pk %}">Edit</a>
+            <a href="{% url 'delete_reservation' reservation.pk %}">Delete</a>
+        </li>
     {% endfor %}
 </ul>
+
+<nav>
+    <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            <a class="page-link" href="?page=1">First</a>
+        </li>
+        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+        </li>
+        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        </li>
+    </ul>
+</nav>
 
 {% endblock %}
