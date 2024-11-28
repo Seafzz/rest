@@ -6,9 +6,11 @@ from .models import Reservation
 from .forms import ReservationForm
 
 def home(request):
+    print("Home view reached")
     return render(request, 'booking/home.html')
 
 def signup(request):
+    print("Signup view reached")
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -20,6 +22,7 @@ def signup(request):
     return render(request, 'booking/signup.html', {'form': form})
 
 def login_view(request):
+    print("Login view reached")
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -37,11 +40,13 @@ def logout_view(request):
 
 @login_required
 def reservation_list(request):
+    print("Reservation list view reached")
     reservations = Reservation.objects.filter(user=request.user)
     return render(request, 'booking/reservation_list.html', {'reservations': reservations})
 
 @login_required
 def create_reservation(request):
+    print("Create reservation view reached")
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -52,3 +57,5 @@ def create_reservation(request):
     else:
         form = ReservationForm()
     return render(request, 'booking/create_reservation.html', {'form': form})
+
+
