@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect 
-from django.contrib.auth import login, logout, authenticate 
-from django.contrib.auth.forms import UserCreationForm 
-from django.contrib.auth.decorators import login_required 
-from .models import Reservation 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from .models import Reservation
 from .forms import ReservationForm
 
 def home(request):
@@ -11,7 +11,7 @@ def home(request):
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_vaild():
+        if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('reservation_list')
@@ -28,8 +28,8 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            return render(request, 'booking/login.html', {'error: Invalid credentials'})
-        return render(request, 'booking/login.html')
+            return render(request, 'booking/login.html', {'error': 'Invalid credentials'})
+    return render(request, 'booking/login.html')
 
 def logout_view(request):
     logout(request)
@@ -37,15 +37,15 @@ def logout_view(request):
 
 @login_required
 def reservation_list(request):
-    reservation = Reservation.objects.filter(user=request.user)
+    reservations = Reservation.objects.filter(user=request.user)
     return render(request, 'booking/reservation_list.html', {'reservations': reservations})
 
 @login_required
 def create_reservation(request):
     if request.method == 'POST':
-        form = ReservationsForm(request.POST)
+        form = ReservationForm(request.POST)
         if form.is_valid():
-            reservation = form.save(comit=False)
+            reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.save()
             return redirect('reservation_list')
