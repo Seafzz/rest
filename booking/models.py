@@ -12,4 +12,8 @@ class Reservation(models.Model):
 
 
 class UserProfile(models.model):
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.Charfield(max_length15, blank=True, null=True)
+    addresss = models.TextField(blank=True, null=True)
+
+    def __str__(self): return self
