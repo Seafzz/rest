@@ -21,8 +21,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
-CSRF_TRUSTED_ORIGINS = [ 'https://8000-seafzz-rest-x99lm15bh6c.ws-eu116.gitpod.io' ]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') 
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
