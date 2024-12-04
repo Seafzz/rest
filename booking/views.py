@@ -93,4 +93,5 @@ def update_profile(request):
     })
 
 def my_reservations(request):
-    
+    reservations = Reservation.objects.filter(user=request.user)
+    return render(request, 'booking/my_reservations.html', {'reservations': reservations})
