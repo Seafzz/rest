@@ -48,10 +48,14 @@ def create_reservation(request):
             reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.save()
-            return redirect('reservation_list')
+            print(f"Reservation created: {reservation}")  # Debugging output
+            return redirect('my_reservations')
+        else:
+            print("Form is not valid")  # Debugging output
     else:
         form = ReservationForm()
     return render(request, 'booking/create_reservation.html', {'form': form})
+
 
 @login_required
 def edit_reservation(request, pk):
