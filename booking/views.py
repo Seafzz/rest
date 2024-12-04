@@ -98,4 +98,4 @@ def my_reservations(request):
 
 
 def user_dashboard(request):
-    
+    return render(request, 'booking/user_dashboard.html')
