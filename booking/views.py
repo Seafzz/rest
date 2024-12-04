@@ -73,18 +73,19 @@ def delete_reservation(request, pk):
         return redirect('reservation_list')
     return render(request, 'booking/delete_reservation.html', {'reservation': reservation})
 
+
 @login_required
 def update_profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    if request.method =='POST':
-        user_form = UserProfileForm(request.POST, instance=request.user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, instance=user_profile)
-        if user_form.is.valid() and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             return redirect('profile')
     else:
-        user_form = userForm(instance=request.user)
+        user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
     return render(request, 'update_profile.html', {
         'user_form': user_form,
