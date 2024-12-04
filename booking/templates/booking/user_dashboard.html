@@ -1,9 +1,16 @@
-{% extends 'booking/base.html' %} 
-{% block title %}User Dashboard{% endblock %} 
+{% extends 'booking/base.html' %}
+{% block title %}User Dashboard{% endblock %}
 {% block content %}
-<div class="card mt-4"> 
-    <div class="card-header"> 
-        <h2>User Dashboard</h2> 
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>User Dashboard</h2>
     </div>
-
+    <div class="card-body">
+        <div class="list-group">
+            <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">Update Profile</a>
+            <a href="{% url 'my_reservations' %}" class="list-group-item list-group-item-action">View My Reservations</a>
+            <a href="{% url 'create_reservation' %}" class="list-group-item list-group-item-action">Create a New Reservation</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
