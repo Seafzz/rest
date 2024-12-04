@@ -96,9 +96,12 @@ def update_profile(request):
         'profile_form': profile_form
     })
 
+@login_required
 def my_reservations(request):
     reservations = Reservation.objects.filter(user=request.user)
+    print(f"Fetched reservations: {reservations}")  # Debugging output
     return render(request, 'booking/my_reservations.html', {'reservations': reservations})
+
 
 
 def user_dashboard(request):
