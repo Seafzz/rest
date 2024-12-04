@@ -76,7 +76,7 @@ def delete_reservation(request, pk):
 @login_required
 def update_profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    if request.method='POST':
+    if request.method =='POST':
         user_form = UserProfileForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, instance=user_profile)
         if user_form.is.valid() and profile_form.is_valid():
