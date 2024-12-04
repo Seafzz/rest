@@ -91,3 +91,6 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+def my_reservations(request):
+    
